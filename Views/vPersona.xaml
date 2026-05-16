@@ -3,7 +3,8 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="cmasacoS5B.Views.vPersona"
              Title="vPersona">
-    <VerticalStackLayout>
+    <ScrollView>
+        <VerticalStackLayout Spacing="15" Padding="20">
         <Label 
             Text="CRUD EN SQLITE: Persona"
             VerticalOptions="Center" 
@@ -16,9 +17,10 @@
         
         <Grid>
             <Grid.RowDefinitions>
-                <RowDefinition Height="*"/>
-                <RowDefinition Height="*"/>
-                <RowDefinition Height="*"/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
             </Grid.RowDefinitions>
             
             <Grid.ColumnDefinitions>
@@ -28,6 +30,7 @@
             <Button x:Name="btnAgregar"
                 Text="Agregar persona" 
                 Clicked="btnAgregar_Clicked"
+                FontAttributes="Bold"
                 Grid.Row="0"
                 Grid.Column="0"/>
             
@@ -38,17 +41,19 @@
             
             <Button x:Name="btnListar"
                 Text="Listar personas" 
+                FontAttributes="Bold"
                 Clicked="btnListar_Clicked"
                 Grid.Row="2"
-                Grid.Column="0"/>
-
-            <CollectionView x:Name="ListarPersonas"
+                Grid.Column="0"/>          
+            
+                <CollectionView x:Name="ListarPersonas"
                             Grid.Row="3"
                             Grid.Column="0">
-                <CollectionView.ItemTemplate>
-                    <DataTemplate>
-                        <StackLayout>
-                            <Grid>
+                    
+                    <CollectionView.ItemTemplate> 
+                    <DataTemplate>                        
+                        <StackLayout>                                  
+                                <Grid>
                                 <Grid.RowDefinitions>
                                     <RowDefinition/>
                                 </Grid.RowDefinitions>
@@ -56,15 +61,37 @@
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition/>
                                     <ColumnDefinition/>
-                                </Grid.ColumnDefinitions>
-                                
+                                    <ColumnDefinition/>
+                                    <ColumnDefinition/>
+                                </Grid.ColumnDefinitions>                                
+
                                 <Label Text="{Binding Id}" 
-                                       Grid.Row="0" 
+                                       HorizontalTextAlignment="Center"
+                                       Grid.Row="1" 
                                        Grid.Column="0"/>
-                                <Label Text="{Binding Nombre}" 
-                                       Grid.Row="0" 
+
+                                <Entry x:Name="txtNombreFila"
+                                       Text="{Binding Nombre, Mode=TwoWay}" 
+                                       IsEnabled="False" 
+                                       VerticalOptions="Center"
+                                       Grid.Row="1" 
                                        Grid.Column="1"/>
-                            </Grid>
+
+                                <Button x:Name="btnEliminar"
+                                        Text="Eliminar" 
+                                        BackgroundColor="#E74C3C"
+                                        FontAttributes="Bold"
+                                        Clicked="btnEliminar_Clicked"
+                                        Grid.Row="1"
+                                        Grid.Column="2"/>
+                                <Button x:Name="btnActualizar"
+                                        Text="Actualizar"
+                                        BackgroundColor="#F39C12"
+                                        FontAttributes="Bold"
+                                        Clicked="btnActualizar_Clicked"
+                                        Grid.Row="1"
+                                        Grid.Column="3"/>                                    
+                                </Grid>
                         </StackLayout>
                     </DataTemplate>
                 </CollectionView.ItemTemplate>
@@ -72,4 +99,5 @@
 
         </Grid>
     </VerticalStackLayout>
+        </ScrollView>
 </ContentPage>

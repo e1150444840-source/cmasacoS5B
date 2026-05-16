@@ -1,4 +1,4 @@
-﻿using cmasacoS5B.Model;
+using cmasacoS5B.Model;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -24,6 +24,7 @@ namespace cmasacoS5B.Repositorio
             _conn.CreateTable<Persona>();
         }
 
+        //CREAR 
         public void AddNewPerson(string name)
         {
             int result = 0 ;
@@ -32,11 +33,12 @@ namespace cmasacoS5B.Repositorio
             {
                 Init();
                 if (string.IsNullOrEmpty(name))
-                    throw new Exception("El nombre es Requerido");
+                    throw new Exception(" El nombre es Requerido");
 
                 Persona person = new() { Nombre=name };
                 result = _conn.Insert(person);
-                Status = string.Format("Dato ingresado");            
+                Status = string.Format("Dato ingresado");  
+                
             }
 
             catch (Exception ex)
@@ -46,6 +48,7 @@ namespace cmasacoS5B.Repositorio
             }
         }
 
+        //LISTAR
         public List<Persona> GetAllPerson()
         {
             try
@@ -55,22 +58,39 @@ namespace cmasacoS5B.Repositorio
             }
             catch (Exception ex)
             {
-                Status = string.Format("Error" + ex.Message);
+                Status = string.Format("Error " + ex.Message);
             }
             return new List<Persona>();
         }
 
-        public void DeletePerson(Persona persona)
+        //ELIMINAR
+        public void EliminarPerson(Persona persona)
         {
             try
             {
-                Init(); 
+                Init();
                 int result = _conn.Delete(persona);
-                Status = string.Format("registros eliminados" + result);
+
+                Status = string.Format("Registro eliminado con éxito.");
             }
             catch (Exception ex)
             {
-                Status = string.Format("Error al eliminar:" + ex.Message);
+                Status = string.Format("Error al eliminar: ");
+            }
+        }
+
+        //ACTUALIZAR
+        public void ActualizarPerson(Persona persona)
+        {
+            try
+            {
+                Init();
+                int result = _conn.Update(persona);
+                Status = string.Format("Registros actualizados correctamente.");
+            }
+            catch (Exception ex)
+            {
+                Status = string.Format("Error al actualizar. {ex.Message}");
             }
         }
 
